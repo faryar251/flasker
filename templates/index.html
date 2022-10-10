@@ -1,0 +1,27 @@
+<h1>Hello World!</h1>
+
+<p>This is my first webpage!!!</p>
+
+<p>My name is {{first_name}}!</p>
+
+<p>{{ stuff|title }}</p>
+
+<h3>Favorite Pizza:</h3>
+{% for topping in fav_pizza %}
+    {% if topping == 41%}
+        {{topping + 100}}<br/>
+    {% else %}
+        {{topping}}<br/>
+    {% endif %}
+
+{% endfor %}
+
+<br/><br>
+
+<h3>Testing dictionary</h3>
+<dl>
+{% for key, value in test|items %}
+    <dt> {{key}}
+    <dd> {{value}}
+{% endfor %}
+</dl>
