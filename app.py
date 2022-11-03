@@ -33,7 +33,7 @@ app.debug = True
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 
 # new db - mysql
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://upoziyykdejpza:c4e470e9c28407e3a039b46ab399177be7ba9eda949c6b8b0727030d2b73c13b@ec2-18-215-41-121.compute-1.amazonaws.com:5432/ddi56vtf2uo5lv'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://upoziyykdejpza:c4e470e9c28407e3a039b46ab399177be7ba9eda949c6b8b0727030d2b73c13b@ec2-18-215-41-121.compute-1.amazonaws.com:5432/ddi56vtf2uo5lv'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:kiirosan@localhost:3306/our_users'
 # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
