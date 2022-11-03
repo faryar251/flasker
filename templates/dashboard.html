@@ -33,7 +33,7 @@
   <div class="card-header container">
     <div class="row">
       <div class="col-10 text-white">
-        <h4>User Profile</h4>
+        <h4><i class="fa-solid fa-circle-user"></i> User Profile</h4>
       </div>
       <div class="col">
         <a href="{{url_for('update', id=current_user.id)}}" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
@@ -129,14 +129,56 @@
               <img class="rounded-circle" src="{{ url_for('static', filename='images/defaultbluepink.png') }}" width="200">
             {% endif %}
           </div>
-        </div> 
-          
-          
+        </div>         
       </div>
     </div>
   </p>
   </div>
+
+
+<div class="card shadow-sm p-4 mb-5 bg-dark rounded" >
+  <!-- <div class="card"> -->
+  <div class="card-header ">
+    <div class="row">
+      <h4 class="text-white"><i class="fa-solid fa-pen-to-square"></i>  My Posts</h4>
+
+    </div>
+  </div>
+
+  <div class="card-body ">
+    <!-- <h5 class="card-title">About User</h5> -->
+    <p class="card-text">
+      <div class="container text-muted">
+      {% set count = namespace(value=1) %}
+      {% for post in posts %}
+        {% if post.poster.id == current_user.id%}
+          <div class="row ">
+            <div class="col-auto text-white">
+              <h5 class="text-white">  {{ count.value }}. {{ post.title }}</h5>
+              <p class="text-muted"><small><i>Created at</i> <b>{{ post.date_posted }}</b></small></p>
+            </div>
+            <div class="col" align="right">
+              <a href="{{ url_for('edit_post', id=post.id) }}" class="btn btn-outline-warning"><i class="fa-solid fa-pen"></i></a>
+              <a href="{{ url_for('delete_post', id=post.id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
+              <a href="{{ url_for('post', id=post.id) }}" class="btn btn-outline-info"><i class="fa-solid fa-eye"></i>  View Post</a>
+            </div>
+          <hr>
+          </div>
+          {% set count.value = count.value + 1 %}  
+        {% endif %}
+      {% endfor %}
+
+      {% if count.value==1 %}
+        <p class="text-white">You have not created any post yet. 
+          To add a post, <a href="{{url_for('add_post')}}" class="btn btn-info btn-sm"><i class="fa-solid fa-square-plus"></i><strong> click here</strong></a>.</p>
+
+      {% endif %}
+        
+    </p>
+  </div>
 </div>
+
+
 
 
 

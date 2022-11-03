@@ -14,138 +14,103 @@
   </div>
 {% endfor %}
 
-{% if name %}
-    <h1>Database Updated!!</h1>
+
+
+<h1>Sign up here!</h1>
+<br/>
+<div class="shadow-sm p-3 mb-5 bg-dark text-white rounded">
+  <form method="POST">
+        {{form.hidden_tag()}}
+
+        <!-- name -->
+        <i class="fa-solid fa-id-card text-info" ></i>
+        {{form.name.label(
+            class="form-label")}}
+        {{form.name(
+            class='form-control')}}
+        <br/>
+
+        <!-- username -->
+        <i class="fa-solid fa-user text-info" ></i>
+        {{form.username.label(
+          class="form-label")}}
+        {{form.username(
+          class='form-control')}}
+        <br/>
+
+        <!-- email -->
+        <i class="fa-solid fa-envelope text-info" ></i>
+        {{form.email.label(
+            class="form-label")}}
+        {{form.email(
+            class='form-control')}}
+        <br/>
+
+          <!-- password -->
+        <i class="fa-solid fa-key text-warning"></i>
+
+          {{form.password_hash.label(
+          class="form-label")}}
+      {{form.password_hash(
+          class='form-control')}}
+      <br/>
+
+        <!-- password -->
+        <i class="fa-solid fa-key text-warning"></i>
+        {{form.password_hash2.label(
+        class="form-label")}}
+    {{form.password_hash2(
+        class='form-control')}}
     <br/>
-    
-    <table class="table table-sm table-dark table-striped-columns table-hover">
-        <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Name</th>
-              <th scope="col">E-Mail</th>
-              <th scope="col">Favorite Color</th>
-              <th scope="col"> </th>
 
 
-            </tr>
-          </thead>
-        {% for our_user in our_users %}
-          <!-- <tbody class="table-group-divider"> -->
-            <tr>
-                <td>{{our_user.id}}</td>
-                <td><a href="{{url_for('update', id=our_user.id)}}">{{our_user.name}}</a></td>
-                <td>{{our_user.email}}</td>
-                <td>{{our_user.fav_color}}</td>
-                <td><a href="{{url_for('delete', id=our_user.id)}}">Delete</a></td>
-
-              </tr>
-          <!-- </tbody> -->
-    
-    {% endfor %}
-    </table>
-    
-
-    <br/>
+        <!-- fav_color -->
+        <i class="fa-solid fa-palette text-info" ></i>
+        {{form.fav_color.label(
+          class="form-label")}}
+      {{form.fav_color(
+          class='form-control')}}
+      <br/>
 
 
-{% else %}
-    <h1> Add your profile!</h1>
-    <br/>
-    <div class="shadow-sm p-3 mb-5 bg-dark text-white rounded">
-        <form method="POST">
-                {{form.hidden_tag()}}
+        <!-- submit -->
+        {{form.submit(
+            class="btn btn-info"
+        )}}
 
-                <!-- name -->
-                <i class="fa-solid fa-id-card text-info" ></i>
-                {{form.name.label(
-                    class="form-label")}}
-                {{form.name(
-                    class='form-control')}}
-                <br/>
-
-                <!-- username -->
-                <i class="fa-solid fa-user text-info" ></i>
-                {{form.username.label(
-                  class="form-label")}}
-                {{form.username(
-                  class='form-control')}}
-                <br/>
-
-                <!-- email -->
-                <i class="fa-solid fa-envelope text-info" ></i>
-                {{form.email.label(
-                    class="form-label")}}
-                {{form.email(
-                    class='form-control')}}
-                <br/>
-
-                 <!-- password -->
-               <i class="fa-solid fa-key text-warning"></i>
-
-                 {{form.password_hash.label(
-                  class="form-label")}}
-              {{form.password_hash(
-                  class='form-control')}}
-              <br/>
-
-               <!-- password -->
-               <i class="fa-solid fa-key text-warning"></i>
-               {{form.password_hash2.label(
-                class="form-label")}}
-            {{form.password_hash2(
-                class='form-control')}}
-            <br/>
-
-
-                <!-- fav_color -->
-                <i class="fa-solid fa-palette text-info" ></i>
-                {{form.fav_color.label(
-                  class="form-label")}}
-              {{form.fav_color(
-                  class='form-control')}}
-              <br/>
-
-
-                <!-- submit -->
-                {{form.submit(
-                    class="btn btn-info"
-                )}}
-
-        </form>
-    </div>
+  </form>
+</div>
 <br/><br/><br/>
-<table class="table table-sm table-dark table-striped-columns table-hover">
-    <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Username</th>
-          <th scope="col">E-Mail</th>
-          <th scope="col">Password</th>
-          <th scope="col">Favorite Color</th>
-          <th scope="col"> </th>
-
-        </tr>
-      </thead>
-    {% for our_user in our_users %}
-      <!-- <tbody class="table-group-divider"> -->
-        <tr>
-            <td>{{our_user.id}}</td>
-            <td><a href="{{url_for('update', id=our_user.id)}}">{{our_user.name}}</a></td>
-            <td>{{our_user.username}}</td>
-            <td>{{our_user.email}}</td>
-            <td>{{our_user.password_hash}}</td>
-            <td>{{our_user.fav_color}}</td>
-            <td><a href="{{url_for('delete', id=our_user.id)}}">Delete</a></td>
+{% if current_user.id == 3 %}
+  <table class="table table-sm table-dark table-striped-columns table-hover">
+      <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">E-Mail</th>
+            <th scope="col">Password</th>
+            <th scope="col">Favorite Color</th>
+            <th scope="col"> </th>
 
           </tr>
-      <!-- </tbody> -->
+        </thead>
+      {% for our_user in our_users %}
+        <!-- <tbody class="table-group-divider"> -->
+          <tr>
+              <td>{{our_user.id}}</td>
+              <td><a href="{{url_for('update', id=our_user.id)}}">{{our_user.name}}</a></td>
+              <td>{{our_user.username}}</td>
+              <td>{{our_user.email}}</td>
+              <td>{{our_user.password_hash}}</td>
+              <td>{{our_user.fav_color}}</td>
+              <td><a href="{{url_for('delete', id=our_user.id)}}">Delete</a></td>
 
-{% endfor %}
-</table>
-
+            </tr>
+      {% endfor %}
+  </table>
 {% endif %}
+
 
 
 {% endblock %}

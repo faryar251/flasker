@@ -83,11 +83,12 @@ def login():
             if check_password_hash(user.password_hash, form.password.data):
                 login_user(user)
                 flash('Login successful!', 'success')
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('posts'))
             else:
                 flash('Wrong Password - Try Again!!', 'warning')
         else:
             flash("User Doesn't Exist! Sign up instead!", 'warning')
+    
     return render_template('login.html', form=form)
 
 # Create Log out Page
@@ -102,8 +103,8 @@ def logout():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-
-    return render_template('dashboard.html')
+    posts = Posts.query.order_by(Posts.date_posted)
+    return render_template('dashboard.html', posts=posts)
 
 
 # open individual blogs in a new page
@@ -201,21 +202,11 @@ def add_post():
     # redirect all this info to the webpage
     return render_template('add_post.html', form=form)
 
-@app.route('/posts')
+@app.route('/')
 def posts():
     # grab all posts from database
     posts = Posts.query.order_by(Posts.date_posted)
     return render_template('posts.html', posts=posts)
-
-# json thing
-@app.route('/date')
-def get_current_date():
-    test = {
-            'Date': '22-10-2022', 
-            'Pizza': 'Pepperoni', 
-            'OrderNo': '110293'
-            }
-    return test
 
 
 # Update Database
@@ -291,75 +282,6 @@ def delete(id):
         return redirect(url_for('dashboard'))
 
 
-
-# Create a route decorator
-@app.route('/')
-def index():
-    first_name = 'John'
-    stuff = 'This is a bold Text.'
-    fav_pizza = ['Pepperoni', 'Cheese', 'Mushrooms', 41]
-    test = {1: 'a', 2:'b', 3:'c'}
-
-    return render_template('index.html', 
-        first_name=first_name, 
-        stuff=stuff,
-        fav_pizza=fav_pizza, test=test)
-
-
-# localhost:5000/user/name
-@app.route('/user/<name>')
-def user(name):
-    return render_template('user.html', user_name=name)
-
-
-# Create Name Page
-@app.route('/name', methods=['GET', 'POST'])
-def name():
-    name = None
-    form = NamerForm()
-    # Validate Form
-    if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ''
-        flash("Form Submitted Successfully!")
-
-    return render_template('name.html', 
-            name=name, 
-            form=form)
-
-
-
-# Testing password hashing
-@app.route('/test_pw', methods=['GET', 'POST'])
-def test_pw():
-    email = None
-    password = None
-    pw_to_check = None
-    passed = None
-    form = PasswordForm()
-    # Validate Form
-    if form.validate_on_submit():
-        email = form.email.data
-        password = form.password_hash.data
-
-        # clear the form
-        form.email.data = ''
-        form.password_hash.data = ''
-
-        # look up user by email address
-        pw_to_check = Users.query.filter_by(email=email).first()
-
-        # check hashed password
-        passed = check_password_hash(pw_to_check.password_hash, password)
-
-        flash("Form Submitted Successfully!")
-
-    return render_template('test_pw.html', 
-            email=email, password=password, 
-            pw_to_check=pw_to_check,
-            passed = passed, form=form)
-
-
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
     name = None
@@ -380,7 +302,8 @@ def add_user():
         form.fav_color.data = ''
         form.email.data = ''
         form.password_hash = ''
-        flash("User Added Successfully!")
+        flash("User Added Successfully!", 'success')
+        return redirect(url_for("login"))
     
     our_users = Users.query.order_by(Users.date_added)
 
@@ -399,11 +322,16 @@ def base():
 @login_required
 def admin():
     id = current_user.id
+    our_users = Users.query.order_by(Users.date_added)
+
     if id == 3:
-        return render_template('admin.html')
+        return render_template('admin.html', 
+                            our_users=our_users)
     else:
         flash('Sorry, you must have the Admin privilege to access this page.', 'danger')
         return redirect(url_for('dashboard'))
+
+
 # Create Search Function
 @app.route('/search', methods=['POST'])
 def search():
@@ -412,7 +340,7 @@ def search():
     # get data from submitted form
     post.searched = form.searched.data
     # query the database for results
-    posts = posts.filter(Posts.content.like('%' + post.searched + '%'))
+    posts = posts.filter(Posts.content.ilike('%' + post.searched + '%'))
     posts = posts.order_by(Posts.title).all()
 
     if form.validate_on_submit():

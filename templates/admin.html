@@ -1,7 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <h2>Admin Page</h2>
-    <h5>Under construction</h5>
+    <h2>User Database</h2>
+
+    <table class="table table-sm table-dark table-striped-columns table-hover" style="text-align: justify;">
+        <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">E-Mail</th>
+              <th scope="col">About User</th>
+              <!-- <th scope="col">Password</th> -->
+              <th scope="col">Favorite Color</th>
+              <th scope="col"> </th>
+  
+            </tr>
+          </thead>
+        {% for our_user in our_users %}
+          <!-- <tbody class="table-group-divider"> -->
+            <tr>
+                <td>{{our_user.id}}</td>
+                <td><a href="{{url_for('update', id=our_user.id)}}">{{our_user.name}}</a></td>
+                <td>{{our_user.username}}</td>
+                <td>{{our_user.email}}</td>
+                <td>{{our_user.about_author}}</td>
+                <!-- <td>{{our_user.password_hash}}</td> -->
+                <td>{{our_user.fav_color}}</td>
+                <td><a href="{{url_for('delete', id=our_user.id)}}"><i class="fa-solid fa-trash-can text-danger"></i></a></td>
+  
+              </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
