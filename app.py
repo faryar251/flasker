@@ -254,25 +254,33 @@ def update(id):
                         name_to_update=name_to_update, id=id)
         
 @app.route('/delete/<int:id>')
+@login_required
 def delete(id):
-    user_to_delete = Users.query.get_or_404(id)
-    name = None
-    form = UserForm()
-    try:
-        db.session.delete(user_to_delete)
-        db.session.commit()
-        flash('User Deleted Successfully!')
 
-        our_users = Users.query.order_by(Users.date_added)
-        return render_template('add_user.html', 
-            form=form, name=name, 
-            our_users=our_users)
+    if id == current_user.id:
+        user_to_delete = Users.query.get_or_404(id)
+        name = None
+        form = UserForm()
+        try:
+            db.session.delete(user_to_delete)
+            db.session.commit()
+            flash('User Deleted Successfully!')
 
-    except:
-        flash('Whoo[s! There was a problem deleting the user.')
-        return render_template('add_user.html', 
-            form=form, name=name, 
-            our_users=our_users)
+            our_users = Users.query.order_by(Users.date_added)
+            return render_template('add_user.html', 
+                form=form, name=name, 
+                our_users=our_users)
+
+        except:
+            flash('Whoosh! There was a problem deleting the user.')
+            return render_template('add_user.html', 
+                form=form, name=name, 
+                our_users=our_users)
+    else:
+        flash('You are not authorized to delete this user.', 'danger')
+        return redirect(url_for('dashboard'))
+
+
 
 # Create a route decorator
 @app.route('/')
@@ -381,7 +389,7 @@ def base():
 @login_required
 def admin():
     id = current_user.id
-    if id == 19:
+    if id == 3:
         return render_template('admin.html')
     else:
         flash('Sorry, you must have the Admin privilege to access this page.', 'danger')
