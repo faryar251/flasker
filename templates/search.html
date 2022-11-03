@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% block content %}
+
+    <br/>
+    
+{% if posts %}
+<h1>Search Results for <em>"{{ searched }}"</em></h1>
+    <br/>
+    {% for post in posts %}
+    <div class="shadow-sm p-4 mb-5 bg-dark rounded" >
+        <div class="text-white"><h2>{{ post.title }}</h2></div>
+        <div class="text-muted"><small><i>Created by</i> <b>{{ post.poster.name }}</b> <i>at {{ post.date_posted }}</i></small>
+            <hr>
+        </div>
+        <div class="text-white">
+            
+        <!-- <div class="shadow-none p-3 mb-0 bg-body rounded"> -->
+            {{ post.content|safe }}
+        </div>
+        <br>
+        <small><a href="{{ url_for('post', id=post.id) }}" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-eye"></i>  View Post</a> 
+    </div> 
+    {% endfor %}
+
+{% else %}
+<div>
+    <center>
+        <h1>No Result Found </h1> 
+        <h5>Your search term <strong>"{{ searched }}"</strong> does not match any results! Please try again with another keyword. </h5>
+        <br/><br/>
+        <img src="{{url_for('static', filename='images/NotFound.png')}}" alt="Result not found" width="1000"></img>
+        <br/><a href="https://www.freepik.com/free-vector/business-team-looking-new-people-allegory-searching-ideas-staff-woman-with-magnifier-man-with-spyglass-flat-illustration_16368963.htm#query=no%20results&position=6&from_view=search&track=sph">Image by pch.vector</a> on Freepik
+    </center>
+</div>
+    
+{% endif %}
+
+
+{% endblock %}

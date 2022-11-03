@@ -14,32 +14,42 @@
   </div>
 {% endfor %}
 
-{% if name %}
-    <h1>Hello {{ name }}!</h1>
-    <br/>
-    <img src = "{{url_for('static', filename='images/Techblog01.jpg')}}" width=600>
-    <br/>
-    <p id="demo"><a href="https://www.freepik.com/free-vector/blogging-illustration-concept_6192594.htm#query=content%20writer&position=3&from_view=keyword">Image by storyset</a> on Freepik</p>
-  <script src="{{url_for('static', filename='js/myfile.js')}}"></script>
+{% if email %}
+    <h1>Details entered</h1>
+    <h3>E-Mail: {{ email }}</h3>
+    <h3>Password: {{ password }}</h3>
+    <br/><br/>
+    <h1>Matching the details found in DB</h1>
+    <h3>E-Mail: {{ pw_to_check.email }}</h3>
+    <h3>Password: {{ pw_to_check.password_hash }}</h3>
+    <br/br/>
+    <h1>{{ passed }}</h1>
 
+   
 {% else %}
     <h1> Add your details here!</h1>
     <br/>
-    <div class="shadow-sm p-4 mb-5 text-white bg-dark rounded">
     <form method="POST">
             {{form.hidden_tag()}}
-            <i class="fa-solid fa-user text-white" ></i>
-            {{form.name.label(
-                class=" form-label")}}
-            {{form.name(
+
+            {{form.email.label(
+                class="form-label")}}
+            {{form.email(
                 class='form-control')}}
+
+            <br/>
+
+            {{form.password_hash.label(
+                class="form-label")}}
+            {{form.password_hash(
+                class='form-control')}}
+                
             <br/>
             {{form.submit(
-                class="btn btn-info"
+                class="btn btn-secondary"
             )}}
 
     </form>
-    </div>
 
 {% endif %}
 
