@@ -8,6 +8,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, login_user, LoginManager,login_required, logout_user, current_user
 from werkzeug.utils import secure_filename
 import uuid as uuid
+import logging
+import sys
 import os
 
 # rich text editor
@@ -26,6 +28,9 @@ from datetime import datetime, date
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 app.debug = True
+
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
         
 # Add Database
