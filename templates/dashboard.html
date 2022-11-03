@@ -92,14 +92,14 @@
                 </div> 
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-4 text-muted">
                 <i class="fa-solid fa-image-portrait text-info" ></i> <strong>Pfp:</strong>
               </div>
               <div class="col-5 fw-bold text-white">
                 {{ current_user.profile_pic }}
               </div> 
-          </div>
+            </div> -->
 
             <br/>
             <hr>
@@ -123,7 +123,11 @@
           </div>
         </div>
           <div class="col d-flex align-items-center justify-content-center">
-            <img class="rounded-circle" src="{{ url_for('static', filename='images/defaultbluepink.png') }}" width="200">
+            {% if current_user.profile_pic %}
+              <img class="rounded-circle" src="{{ url_for('static', filename='images/' + current_user.profile_pic) }}" width="200">
+            {% else %}
+              <img class="rounded-circle" src="{{ url_for('static', filename='images/defaultbluepink.png') }}" width="200">
+            {% endif %}
           </div>
         </div> 
           

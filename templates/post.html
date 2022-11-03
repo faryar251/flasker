@@ -36,7 +36,7 @@
         <p class="text-muted"><small><i>Created by</i> <b>{{ post.poster.name }}</b> <i>at {{ post.date_posted }}</i></small></p>
       </div>
       <div class="col p-1 m-1" align="right">
-        {% if post.poster.id == current_user.id %}
+        {% if post.poster.id == current_user.id or current_user.id == 3%}
           <a href="{{ url_for('edit_post', id=post.id) }}" class="btn btn-outline-warning"><i class="fa-solid fa-pen"></i></a>
           <a href="{{ url_for('delete_post', id=post.id) }}" class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i></a>
         {% endif %}
@@ -49,25 +49,36 @@
   <div class="text-white" align="justify">
     {{ post.content|safe }}
     {% if post.poster.about_author %}
-    <br/>
+      <br/>
       <hr>
-      <div class="text-muted">
-        <h5><i class="fa-solid fa-circle-info text-info" ></i> <strong>About Author</strong></h5>
-        <p class="text-white" align="justify">{{ post.poster.about_author }}</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-auto">
+            {% if current_user.profile_pic %}
+              <img class="rounded-circle" src="{{ url_for('static', filename='images/' + post.poster.profile_pic) }}" width="120">
+            {% else %}
+              <img class="rounded-circle" src="{{ url_for('static', filename='images/defaultbluepink.png') }}" width="120">
+            {% endif %}
+          </div>
+          <div class="col pt-3">
+            <h5 class="text-muted"><i class="fa-solid fa-circle-info text-info" ></i> <strong>About Author</strong></h5>
+            <p class="text-white" align="justify">{{ post.poster.about_author }}</p>
+          </div>
+        </div>
       </div>
       {% endif %}
   </div>
 
   <br/>
-  <small>
-    <a href="{{ url_for('posts', id=post.id) }}" class="btn btn-outline-info btn-sm"><i class="fa-solid fa-house"></i> All Posts</a>
+  <!-- <small> -->
+    <!-- <a href="{{ url_for('posts', id=post.id) }}" class="btn btn-outline-info"><i class="fa-solid fa-house"></i> All Posts</a> -->
 
-    {% if post.poster.id == current_user.id %}
+    <!-- {% if post.poster.id == current_user.id or current_user.id == 3 %}
     <a href="{{ url_for('edit_post', id=post.id) }}" class="btn btn-outline-warning btn-sm"><i class="fa-solid fa-pen"></i>  Edit</a>
     <a href="{{ url_for('delete_post', id=post.id) }}" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash-can"></i> Delete</a>
-    {% endif %}
+    {% endif %} -->
       
-  </small>
+  <!-- </small> -->
 </div> 
    
 

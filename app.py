@@ -151,7 +151,7 @@ def edit_post(id):
 def delete_post(id):
     post_to_delete = Posts.query.get_or_404(id)
     id = current_user.id
-    if id == post_to_delete.poster.id:
+    if id == post_to_delete.poster.id or id == 3:
         try:
             db.session.delete(post_to_delete)
             db.session.commit()
@@ -195,7 +195,7 @@ def add_post():
         db.session.commit()
 
         # return a message when the form is submitted
-        flash("Blog Post Submiitted Successfully!")
+        flash("Blog Post Submiitted Successfully!", 'success')
         return redirect(url_for('post', id=post.id))
 
     # redirect all this info to the webpage
@@ -230,25 +230,35 @@ def update(id):
         name_to_update.email = request.form['email']
         name_to_update.fav_color= request.form['fav_color']
         name_to_update.about_author = request.form['about_author']
-        name_to_update.profile_pic = request.files['profile_pic']
-        # grab profile picture file name
-        pic_filename = secure_filename(name_to_update.profile_pic.filename)
-        # set UUID
-        pic_name = str(uuid.uuid1()) + '_' + pic_filename
-         # save the image
-        name_to_update.profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
-        # save the string in db
-        name_to_update.profile_pic = pic_name
 
-        try:
+        # check for profile pic
+        if request.files['profile_pic']:
+            name_to_update.profile_pic = request.files['profile_pic']
+            # grab profile picture file name
+            pic_filename = secure_filename(name_to_update.profile_pic.filename)
+            # set UUID
+            pic_name = str(uuid.uuid1()) + '_' + pic_filename
+            # save the image
+            name_to_update.profile_pic.save(os.path.join(app.config['UPLOAD_FOLDER'], pic_name))
+            # save the string in db
+            name_to_update.profile_pic = pic_name
+
+            try:
+                db.session.commit()
+                flash('User Updated Successfully!', 'success')
+                return render_template('dashboard.html', form=form, 
+                            name_to_update=name_to_update)
+            except:
+                flash('Error! Looks like there was a problem. Try Again!', 'warning')
+                return render_template('update.html', form=form, 
+                            name_to_update=name_to_update)
+        else:
             db.session.commit()
             flash('User Updated Successfully!', 'success')
-            return render_template('dashboard.html', form=form, 
-                        name_to_update=name_to_update)
-        except:
-            flash('Error! Looks like there was a problem. Try Again!', 'warning')
-            return render_template('update.html', form=form, 
-                        name_to_update=name_to_update)
+            return render_template('dashboard.html', 
+                            form=form, 
+                            name_to_update=name_to_update)
+
     else:
         return render_template('update.html', form=form, 
                         name_to_update=name_to_update, id=id)
