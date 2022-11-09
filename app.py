@@ -33,9 +33,9 @@ app.logger.setLevel(logging.ERROR)
 # configuring flask app
 app.config.from_object('config.Config')
 # -- development env
-app.config.from_object('config.DevConfig')
+# app.config.from_object('config.DevConfig')
 # -- production env
-# app.config.from_object('config.ProdConfig')
+app.config.from_object('config.ProdConfig')
 
 db = SQLAlchemy()
 migrate = Migrate(app, db)
