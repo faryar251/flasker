@@ -1,4 +1,3 @@
-# http://127.0.0.1:5000
 # base app
 from flask import Flask, render_template, flash, request, redirect, url_for
 
@@ -24,7 +23,6 @@ from datetime import datetime, date
 
 
 # Create a Flask instance
-# def create_app():
 app = Flask(__name__)
 ckeditor = CKEditor(app)
 app.debug = True
@@ -32,30 +30,18 @@ app.debug = True
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
-        
-# Add Database
-# old db - sqlite
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+# configuring flask app
+app.config.from_object('config.Config')
+# -- development env
+app.config.from_object('config.DevConfig')
+# -- production env
+# app.config.from_object('config.ProdConfig')
 
-# new db - mysql
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://upoziyykdejpza:c4e470e9c28407e3a039b46ab399177be7ba9eda949c6b8b0727030d2b73c13b@ec2-18-215-41-121.compute-1.amazonaws.com:5432/ddi56vtf2uo5lv'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:kiirosan@localhost:3306/our_users'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# secret key
-app.config['SECRET_KEY'] = "my super secret key that no one is supposed to know!!"
 db = SQLAlchemy()
 migrate = Migrate(app, db)
-
 db.init_app(app)
 app.app_context().push()
 
-# Configure Profile Picture save path
-UPLOAD_FOLDER = 'static/images/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-    # return app
-# app = create_app()
 
 # Flask Login stuff
 login_manager = LoginManager()
