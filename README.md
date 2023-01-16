@@ -18,11 +18,15 @@
 This is a blogging website created in Flask Python using a [Codemy playlist](https://youtube.com/playlist?list=PLCC34OHNcOtolz2Vd9ZSeSXWc8Bq23yEz). I have made many changes and modified the design of the website as to my liking. Additional features will also be addressed.
 
 #### Here are some screenshots of the website in the Development Environment:
-![profile](static\images\ss_profile.png)
-![login](static\images\ss_login.png)
-![home](static\images\ss_home.png)
-![addpost](static\images\ss_addpost.png)
-![search](static\images\ss_search.png)
+![login](static/images/ss_login.png)
+
+![profile](static/images/ss_profile.png)
+
+![home](static/images/ss_home.png)
+
+![addpost](static/images/ss_addpost.png)
+
+![search](static/images/ss_search.png)
 
 ---
 
