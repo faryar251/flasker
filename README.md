@@ -43,7 +43,7 @@ This is a blogging website created in Flask Python using a [Codemy playlist](htt
 - Activate the virtual environment.
 - Install all the necessary dependencies and modules inside the virtual environment:
 ```
-pip install -r requirements
+pip install -r requirements.txt
 ```
 
 ### 2.2. Update `create_db.py`
