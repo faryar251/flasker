@@ -93,7 +93,7 @@ Make sure to create a `.gitignore` file to hide neccessary files like `.env` and
 For this, just create a file with the name `.gitignore` in your project folder and copy paste the below code:
 ```
 .gitignore
-virt/
+{virt_env_name}/
 .env
 ```
 
