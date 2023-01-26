@@ -2,6 +2,8 @@
 
 ## <a name="toc">Table of Contents</a>
 1. [Introduction](#intro)
+  <br> 1.1 Technologies Used
+  <br> 1.2 Screenshots
 2. [Installation Instructions](#install)
   <br>2.1. Download the code
   <br>2.2. Update `create_db.py`
@@ -17,6 +19,10 @@
 ###### [Back to Table of Contents](#toc)
 This is a blogging website created in Flask Python using a [Codemy playlist](https://youtube.com/playlist?list=PLCC34OHNcOtolz2Vd9ZSeSXWc8Bq23yEz). I have made many changes and modified the design of the website as to my liking. Additional features will also be addressed.
 
+### 1.1. Technologies Used
+![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black) ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Gunicorn](https://img.shields.io/badge/gunicorn-%298729.svg?style=for-the-badge&logo=gunicorn&logoColor=white) ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) 
+
+### 1.2. Screenshots
 #### Here are some screenshots of the website in the Development Environment:
 ![login](static/images/ss_login.png)
 
